@@ -4,13 +4,12 @@ const privateKey = fs.readFileSync(".secret").toString().trim() || "012345678901
 const projectId = 'a567858902264470ba6ae70700287e4a'
 
 module.exports = {
-  defaultNetwork: "hardhat",
   networks: {
     hardhat: {
       chainId: 1337
     },
     mumbai: {
-      url: `https://polygon-mumbai.infura.io/v3/${projectId}`,
+      url: `https://rpc-mumbai.matic.today`,
       accounts: [privateKey]
     },
     mainnet: {
