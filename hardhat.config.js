@@ -28,7 +28,3 @@ module.exports = {
     }
   }
 }
-
-module.exports = {
-  solidity: "0.8.4",
-};

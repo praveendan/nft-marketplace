@@ -34,6 +34,8 @@ export default function CreateItem() {
       console.log('Error uploading file: ', error)
     }
   }
+
+  //creating an item and saving at ipfs
   async function createMarket() {
     const { name, description, price } = formInput
     if (!name || !description || !price || !fileUrl) return
@@ -43,6 +45,7 @@ export default function CreateItem() {
     })
     try {
       const added = await client.add(data)
+      //this will be the token URL
       const url = `https://ipfs.infura.io/ipfs/${added.path}`
       /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
       createSale(url)
@@ -60,10 +63,13 @@ export default function CreateItem() {
     /* next, create the item */
     let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
     let transaction = await contract.createToken(url)
+
     let tx = await transaction.wait()
     let event = tx.events[0]
     let value = event.args[2]
     let tokenId = value.toNumber()
+
+    //turnin the number to wei
     const price = ethers.utils.parseUnits(formInput.price, 'ether')
 
     /* then list the item for sale on the marketplace */
